@@ -1,0 +1,189 @@
+{
+  "selection_partition": "Validation partition only; outer test partition untouched.",
+  "selection_rule": "Lowest Brier score, then lowest 10-bin expected calibration error.",
+  "candidate_metrics_at_default_threshold": {
+    "sigmoid": {
+      "threshold": 0.5,
+      "accuracy": 0.645529,
+      "precision": 0.645544,
+      "recall": 0.604876,
+      "f1_score": 0.624548,
+      "roc_auc": 0.699468,
+      "brier_score": 0.219372,
+      "expected_calibration_error_10_bins": 0.011458,
+      "confusion_matrix": {
+        "true_negative": 5962,
+        "false_positive": 2752,
+        "false_negative": 3274,
+        "true_positive": 5012,
+        "matrix": [
+          [
+            5962,
+            2752
+          ],
+          [
+            3274,
+            5012
+          ]
+        ]
+      },
+      "calibration_bins": [
+        {
+          "bin": 2,
+          "count": 288,
+          "mean_predicted_probability": 0.184106,
+          "observed_positive_rate": 0.166667,
+          "absolute_gap": 0.01744
+        },
+        {
+          "bin": 3,
+          "count": 2333,
+          "mean_predicted_probability": 0.256552,
+          "observed_positive_rate": 0.246892,
+          "absolute_gap": 0.00966
+        },
+        {
+          "bin": 4,
+          "count": 3248,
+          "mean_predicted_probability": 0.351004,
+          "observed_positive_rate": 0.364532,
+          "absolute_gap": 0.013528
+        },
+        {
+          "bin": 5,
+          "count": 3367,
+          "mean_predicted_probability": 0.449547,
+          "observed_positive_rate": 0.435402,
+          "absolute_gap": 0.014145
+        },
+        {
+          "bin": 6,
+          "count": 3047,
+          "mean_predicted_probability": 0.548422,
+          "observed_positive_rate": 0.541844,
+          "absolute_gap": 0.006578
+        },
+        {
+          "bin": 7,
+          "count": 2370,
+          "mean_predicted_probability": 0.649024,
+          "observed_positive_rate": 0.64135,
+          "absolute_gap": 0.007674
+        },
+        {
+          "bin": 8,
+          "count": 1726,
+          "mean_predicted_probability": 0.74667,
+          "observed_positive_rate": 0.751448,
+          "absolute_gap": 0.004778
+        },
+        {
+          "bin": 9,
+          "count": 621,
+          "mean_predicted_probability": 0.829011,
+          "observed_positive_rate": 0.876006,
+          "absolute_gap": 0.046995
+        }
+      ]
+    },
+    "isotonic": {
+      "threshold": 0.5,
+      "accuracy": 0.644706,
+      "precision": 0.654513,
+      "recall": 0.574101,
+      "f1_score": 0.611675,
+      "roc_auc": 0.699214,
+      "brier_score": 0.219428,
+      "expected_calibration_error_10_bins": 0.009456,
+      "confusion_matrix": {
+        "true_negative": 6203,
+        "false_positive": 2511,
+        "false_negative": 3529,
+        "true_positive": 4757,
+        "matrix": [
+          [
+            6203,
+            2511
+          ],
+          [
+            3529,
+            4757
+          ]
+        ]
+      },
+      "calibration_bins": [
+        {
+          "bin": 1,
+          "count": 60,
+          "mean_predicted_probability": 0.069819,
+          "observed_positive_rate": 0.116667,
+          "absolute_gap": 0.046848
+        },
+        {
+          "bin": 2,
+          "count": 365,
+          "mean_predicted_probability": 0.161225,
+          "observed_positive_rate": 0.178082,
+          "absolute_gap": 0.016857
+        },
+        {
+          "bin": 3,
+          "count": 1941,
+          "mean_predicted_probability": 0.260739,
+          "observed_positive_rate": 0.241628,
+          "absolute_gap": 0.019111
+        },
+        {
+          "bin": 4,
+          "count": 3171,
+          "mean_predicted_probability": 0.348914,
+          "observed_positive_rate": 0.35667,
+          "absolute_gap": 0.007756
+        },
+        {
+          "bin": 5,
+          "count": 4195,
+          "mean_predicted_probability": 0.454137,
+          "observed_positive_rate": 0.44267,
+          "absolute_gap": 0.011467
+        },
+        {
+          "bin": 6,
+          "count": 2735,
+          "mean_predicted_probability": 0.548309,
+          "observed_positive_rate": 0.551005,
+          "absolute_gap": 0.002696
+        },
+        {
+          "bin": 7,
+          "count": 2408,
+          "mean_predicted_probability": 0.646854,
+          "observed_positive_rate": 0.651993,
+          "absolute_gap": 0.005139
+        },
+        {
+          "bin": 8,
+          "count": 1243,
+          "mean_predicted_probability": 0.741275,
+          "observed_positive_rate": 0.745776,
+          "absolute_gap": 0.004501
+        },
+        {
+          "bin": 9,
+          "count": 705,
+          "mean_predicted_probability": 0.846242,
+          "observed_positive_rate": 0.829787,
+          "absolute_gap": 0.016454
+        },
+        {
+          "bin": 10,
+          "count": 177,
+          "mean_predicted_probability": 0.920634,
+          "observed_positive_rate": 0.949153,
+          "absolute_gap": 0.028519
+        }
+      ]
+    }
+  },
+  "selected_method": "sigmoid"
+}

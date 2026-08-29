@@ -1,0 +1,30 @@
+feature,importance
+num__slope_deg,0.22339412
+num__soil_moisture,0.13601499
+num__rainfall_mm,0.09637529
+num__elevation_m,0.09261282
+num__historical_landslide_count,0.08248441
+cat__land_cover_Barren,0.02955135
+num__temperature_c,0.02287264
+cat__land_cover_Built-up,0.019955
+cat__state_region_Meghalaya,0.0180992
+cat__state_region_Maharashtra,0.0180487
+cat__state_region_Himachal Pradesh,0.01753479
+cat__land_cover_Forest,0.01737226
+num__days_since_previous_event,0.01637624
+cat__land_cover_Shrubland,0.01601293
+num__curvature,0.01595725
+cat__state_region_Kerala,0.0159028
+num__latitude,0.01585703
+num__humidity_pct,0.01559115
+num__aspect_deg,0.01537019
+cat__land_cover_Cropland,0.01505431
+num__longitude,0.01495665
+cat__state_region_Tamil Nadu,0.01434679
+cat__state_region_West Bengal,0.01423153
+cat__land_cover_Grassland,0.0135636
+cat__state_region_Karnataka,0.01272752
+cat__state_region_Jammu and Kashmir,0.01007877
+cat__state_region_Arunachal Pradesh,0.00886169
+cat__state_region_Uttarakhand,0.0059831
+cat__state_region_Sikkim,0.00481285

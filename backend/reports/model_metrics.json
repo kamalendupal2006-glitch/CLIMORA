@@ -1,0 +1,110 @@
+{
+    "evaluation_label": "Prototype / synthetic dataset evaluation",
+    "dataset_info": {
+        "name": "climora_85000_non_satellite_prototype.csv",
+        "type": "Synthetic prototype dataset (development & ML-pipeline testing)",
+        "total_rows": 85000,
+        "train_rows": 68000,
+        "test_rows": 17000,
+        "test_split_ratio": 0.2,
+        "stratified": true,
+        "random_state": 42
+    },
+    "features": {
+        "target": "landslide",
+        "numerical_features": [
+            "latitude",
+            "longitude",
+            "elevation_m",
+            "slope_deg",
+            "aspect_deg",
+            "curvature",
+            "rainfall_mm",
+            "soil_moisture",
+            "temperature_c",
+            "humidity_pct",
+            "historical_landslide_count",
+            "days_since_previous_event"
+        ],
+        "categorical_features": [
+            "state_region",
+            "land_cover"
+        ],
+        "all_features": [
+            "latitude",
+            "longitude",
+            "elevation_m",
+            "slope_deg",
+            "aspect_deg",
+            "curvature",
+            "rainfall_mm",
+            "soil_moisture",
+            "temperature_c",
+            "humidity_pct",
+            "historical_landslide_count",
+            "days_since_previous_event",
+            "state_region",
+            "land_cover"
+        ],
+        "feature_count": 14,
+        "satellite_features_included": false
+    },
+    "model_architecture": {
+        "model_type": "XGBClassifier (xgboost)",
+        "preprocessing": "scikit-learn ColumnTransformer (SimpleImputer + OneHotEncoder)",
+        "pipeline": "scikit-learn Pipeline",
+        "parameters": {
+            "n_estimators": 200,
+            "max_depth": 6,
+            "learning_rate": 0.06,
+            "subsample": 0.85,
+            "colsample_bytree": 0.85,
+            "min_child_weight": 2,
+            "scale_pos_weight": 1.0515295963313824,
+            "random_state": 42,
+            "eval_metric": "logloss",
+            "n_jobs": -1
+        }
+    },
+    "metrics": {
+        "accuracy": 0.6399,
+        "precision": 0.6332,
+        "recall": 0.6207,
+        "f1_score": 0.6269,
+        "roc_auc": 0.6909,
+        "confusion_matrix": {
+            "true_negative": 5735,
+            "false_positive": 2979,
+            "false_negative": 3143,
+            "true_positive": 5143,
+            "matrix": [
+                [
+                    5735,
+                    2979
+                ],
+                [
+                    3143,
+                    5143
+                ]
+            ]
+        }
+    },
+    "top_feature_importances": {
+        "slope_deg": 0.14403702318668365,
+        "soil_moisture": 0.08239183574914932,
+        "rainfall_mm": 0.06107369065284729,
+        "elevation_m": 0.059017788618803024,
+        "historical_landslide_count": 0.05826704949140549,
+        "land_cover_Barren": 0.03896919637918472,
+        "temperature_c": 0.030640851706266403,
+        "land_cover_Built-up": 0.028234148398041725,
+        "land_cover_Shrubland": 0.02814612165093422,
+        "state_region_Arunachal Pradesh": 0.027877919375896454,
+        "state_region_Sikkim": 0.025779325515031815,
+        "state_region_West Bengal": 0.02498125284910202,
+        "days_since_previous_event": 0.024918394163250923,
+        "humidity_pct": 0.024570023640990257,
+        "land_cover_Grassland": 0.024319935590028763
+    },
+    "disclaimer": "This model was evaluated on a synthetic prototype dataset. Metrics reflect pipeline validation and should not be cited as real-world disaster prediction accuracy."
+}

@@ -1,0 +1,214 @@
+{
+  "audit_timestamp_utc": "2026-08-28T07:12:45.371278+00:00",
+  "dataset": {
+    "path": "climora_85000_non_satellite_prototype.csv",
+    "declared_type": "Synthetic prototype dataset",
+    "rows": 85000,
+    "columns": 16,
+    "all_missing_values": 0,
+    "full_row_duplicates": 0,
+    "feature_duplicate_rows": 0,
+    "feature_groups_with_conflicting_targets": 0,
+    "target_counts": {
+      "0": 43568,
+      "1": 41432
+    },
+    "positive_rate": 0.487435
+  },
+  "feature_quality": {
+    "columns_and_unique_values": {
+      "latitude": {
+        "dtype": "float64",
+        "unique_values": 84766
+      },
+      "longitude": {
+        "dtype": "float64",
+        "unique_values": 84708
+      },
+      "state_region": {
+        "dtype": "str",
+        "unique_values": 11
+      },
+      "elevation_m": {
+        "dtype": "float64",
+        "unique_values": 72964
+      },
+      "slope_deg": {
+        "dtype": "float64",
+        "unique_values": 5091
+      },
+      "aspect_deg": {
+        "dtype": "float64",
+        "unique_values": 32634
+      },
+      "curvature": {
+        "dtype": "float64",
+        "unique_values": 9395
+      },
+      "rainfall_mm": {
+        "dtype": "float64",
+        "unique_values": 30811
+      },
+      "soil_moisture": {
+        "dtype": "float64",
+        "unique_values": 9258
+      },
+      "temperature_c": {
+        "dtype": "float64",
+        "unique_values": 3965
+      },
+      "humidity_pct": {
+        "dtype": "float64",
+        "unique_values": 5801
+      },
+      "land_cover": {
+        "dtype": "str",
+        "unique_values": 6
+      },
+      "historical_landslide_count": {
+        "dtype": "int64",
+        "unique_values": 26
+      },
+      "days_since_previous_event": {
+        "dtype": "int64",
+        "unique_values": 4001
+      },
+      "landslide": {
+        "dtype": "int64",
+        "unique_values": 2
+      },
+      "risk_category_prototype": {
+        "dtype": "str",
+        "unique_values": 5
+      }
+    },
+    "numerical_target_correlation": {
+      "slope_deg": 0.234257,
+      "soil_moisture": 0.165371,
+      "historical_landslide_count": 0.142123,
+      "rainfall_mm": 0.138334,
+      "elevation_m": 0.130195,
+      "temperature_c": -0.108949,
+      "humidity_pct": 0.033556,
+      "days_since_previous_event": 0.0078,
+      "longitude": 0.003593,
+      "curvature": -0.001354,
+      "latitude": 0.001233,
+      "aspect_deg": 0.000669
+    },
+    "categorical_positive_rates": {
+      "state_region": {
+        "Arunachal Pradesh": {
+          "size": 7824,
+          "positive_rate": 0.494248
+        },
+        "Himachal Pradesh": {
+          "size": 7740,
+          "positive_rate": 0.485788
+        },
+        "Jammu and Kashmir": {
+          "size": 7684,
+          "positive_rate": 0.486205
+        },
+        "Karnataka": {
+          "size": 7810,
+          "positive_rate": 0.48886
+        },
+        "Kerala": {
+          "size": 7608,
+          "positive_rate": 0.481204
+        },
+        "Maharashtra": {
+          "size": 7881,
+          "positive_rate": 0.483441
+        },
+        "Meghalaya": {
+          "size": 7630,
+          "positive_rate": 0.490564
+        },
+        "Sikkim": {
+          "size": 7673,
+          "positive_rate": 0.493158
+        },
+        "Tamil Nadu": {
+          "size": 7648,
+          "positive_rate": 0.493593
+        },
+        "Uttarakhand": {
+          "size": 7761,
+          "positive_rate": 0.486149
+        },
+        "West Bengal": {
+          "size": 7741,
+          "positive_rate": 0.47862
+        }
+      },
+      "land_cover": {
+        "Barren": {
+          "size": 8405,
+          "positive_rate": 0.525164
+        },
+        "Built-up": {
+          "size": 6790,
+          "positive_rate": 0.517378
+        },
+        "Cropland": {
+          "size": 15392,
+          "positive_rate": 0.478495
+        },
+        "Forest": {
+          "size": 32326,
+          "positive_rate": 0.481161
+        },
+        "Grassland": {
+          "size": 12043,
+          "positive_rate": 0.480362
+        },
+        "Shrubland": {
+          "size": 10044,
+          "positive_rate": 0.477997
+        }
+      }
+    },
+    "out_of_api_range": {
+      "days_since_previous_event_negative_rows": 1678,
+      "soil_moisture_outside_zero_to_one_rows": 0
+    }
+  },
+  "leakage_review": {
+    "excluded_columns": [
+      "landslide",
+      "risk_category_prototype"
+    ],
+    "risk_category_prototype_target_distribution": {
+      "CRITICAL": {
+        "0": 0.126267,
+        "1": 0.873733
+      },
+      "HIGH": {
+        "0": 0.307379,
+        "1": 0.692621
+      },
+      "LOW": {
+        "0": 0.741227,
+        "1": 0.258773
+      },
+      "MODERATE": {
+        "0": 0.522878,
+        "1": 0.477122
+      },
+      "NO_RISK": {
+        "0": 0.894031,
+        "1": 0.105969
+      }
+    },
+    "finding": "risk_category_prototype is excluded from ALL_INPUT_FEATURES because it is a target-adjacent prototype label. It must never be used as a model feature."
+  },
+  "limitations": [
+    "The CSV is synthetic, so random-split metrics do not establish real-world landslide prediction performance.",
+    "Rows have no event date or documented provenance; this prevents temporal validation.",
+    "Random train/test splits do not prevent nearby or related locations from appearing in both partitions; future real-data work needs spatial blocking.",
+    "The approximately balanced target (rather than a naturally rare event rate) means the prototype's precision, recall, and probability levels will not transfer directly to operations.",
+    "Latitude and longitude are mostly unique synthetic values and should not be interpreted as a validated regional susceptibility map."
+  ]
+}

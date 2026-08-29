@@ -1,0 +1,91 @@
+{
+  "selection_partition": "Validation partition only; outer test partition was not used.",
+  "selection_policy": "Maximum F1 among thresholds with recall >= 0.70; ties resolve by recall and then precision.",
+  "minimum_recall_constraint": 0.7,
+  "selected_threshold": 0.33,
+  "validation_metrics_at_selected_threshold": {
+    "threshold": 0.33,
+    "accuracy": 0.588059,
+    "precision": 0.547699,
+    "recall": 0.888969,
+    "f1_score": 0.677801,
+    "roc_auc": 0.699468,
+    "brier_score": 0.219372,
+    "expected_calibration_error_10_bins": 0.011458,
+    "confusion_matrix": {
+      "true_negative": 2631,
+      "false_positive": 6083,
+      "false_negative": 920,
+      "true_positive": 7366,
+      "matrix": [
+        [
+          2631,
+          6083
+        ],
+        [
+          920,
+          7366
+        ]
+      ]
+    },
+    "calibration_bins": [
+      {
+        "bin": 2,
+        "count": 288,
+        "mean_predicted_probability": 0.184106,
+        "observed_positive_rate": 0.166667,
+        "absolute_gap": 0.01744
+      },
+      {
+        "bin": 3,
+        "count": 2333,
+        "mean_predicted_probability": 0.256552,
+        "observed_positive_rate": 0.246892,
+        "absolute_gap": 0.00966
+      },
+      {
+        "bin": 4,
+        "count": 3248,
+        "mean_predicted_probability": 0.351004,
+        "observed_positive_rate": 0.364532,
+        "absolute_gap": 0.013528
+      },
+      {
+        "bin": 5,
+        "count": 3367,
+        "mean_predicted_probability": 0.449547,
+        "observed_positive_rate": 0.435402,
+        "absolute_gap": 0.014145
+      },
+      {
+        "bin": 6,
+        "count": 3047,
+        "mean_predicted_probability": 0.548422,
+        "observed_positive_rate": 0.541844,
+        "absolute_gap": 0.006578
+      },
+      {
+        "bin": 7,
+        "count": 2370,
+        "mean_predicted_probability": 0.649024,
+        "observed_positive_rate": 0.64135,
+        "absolute_gap": 0.007674
+      },
+      {
+        "bin": 8,
+        "count": 1726,
+        "mean_predicted_probability": 0.74667,
+        "observed_positive_rate": 0.751448,
+        "absolute_gap": 0.004778
+      },
+      {
+        "bin": 9,
+        "count": 621,
+        "mean_predicted_probability": 0.829011,
+        "observed_positive_rate": 0.876006,
+        "absolute_gap": 0.046995
+      }
+    ]
+  },
+  "interpretation": "Prototype binary operating point only. It is not an alert or evacuation threshold and must be revalidated on real, temporally and spatially separated data before operational use."
+}
