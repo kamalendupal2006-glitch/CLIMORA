@@ -118,3 +118,53 @@ export async function checkBackendHealth() {
     return false;
   }
 }
+
+/**
+ * Batch prediction — sends an array of raw row objects (already in backend field names)
+ * to POST /api/predict/batch and returns the full response.
+ *
+ * @param {Array<Object>} rows - Array of objects with backend field names (snake_case)
+ * @param {Function} onProgress - Optional callback(completed, total) called after each row result
+ */
+export async function predictBatch(rows, onProgress) {
+  const controller = new AbortController();
+  // Allow up to 2 minutes for large batches
+  const timeoutId = setTimeout(() => controller.abort(), 120000);
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/predict/batch`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ rows }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      let errorMsg = `Server returned HTTP ${response.status}`;
+      try {
+        const errorData = await response.json();
+        if (errorData?.detail) errorMsg = errorData.detail;
+        if (errorData?.error) errorMsg = errorData.error;
+      } catch { /* ignore */ }
+      throw new Error(errorMsg);
+    }
+
+    const data = await response.json();
+
+    // Simulate per-row progress reporting (backend returns all at once)
+    if (onProgress && data.results) {
+      data.results.forEach((_, i) => onProgress(i + 1, data.total));
+    }
+
+    return data;
+  } catch (err) {
+    clearTimeout(timeoutId);
+    if (err.name === 'AbortError') {
+      throw new Error('Batch prediction timed out. Try uploading a smaller file.');
+    }
+    throw err;
+  }
+}
+

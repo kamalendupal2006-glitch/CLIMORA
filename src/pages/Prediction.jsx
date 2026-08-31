@@ -6,6 +6,7 @@ import { fetchEnvironmentalData, extractFormValues, buildSourceStatus } from '..
 import RiskBadge from '../components/RiskBadge';
 import GeotechBreakdown from '../components/GeotechBreakdown';
 import RecommendationCard from '../components/RecommendationCard';
+import BatchUpload from '../components/BatchUpload';
 import {
   ShieldAlert,
   RotateCcw,
@@ -33,6 +34,7 @@ import {
   WifiOff,
   Database,
   Info,
+  Upload,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -154,6 +156,7 @@ const selectCls = (err) =>
 // Main component
 // ---------------------------------------------------------------------------
 export default function Prediction() {
+  const [activeTab, setActiveTab] = useState('manual'); // 'manual' | 'batch'
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [formErrors, setFormErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -391,6 +394,44 @@ export default function Prediction() {
           GPS coordinate integration fetching live Open-Meteo meteorological telemetry and Copernicus DEM terrain gradients for calibrated early-warning inference.
         </p>
       </div>
+
+      {/* ── Mode Tab Toggle ─────────────────────────────────────────────── */}
+      <div className="flex gap-1 bg-slate-900/60 border border-slate-800 rounded-2xl p-1">
+        <button
+          type="button"
+          onClick={() => setActiveTab('manual')}
+          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 ${
+            activeTab === 'manual'
+              ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-900/40'
+              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+          }`}
+        >
+          <Sliders className="w-3.5 h-3.5" />
+          Manual Prediction
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveTab('batch')}
+          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 ${
+            activeTab === 'batch'
+              ? 'bg-teal-600 text-white shadow-lg shadow-teal-900/40'
+              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+          }`}
+        >
+          <Upload className="w-3.5 h-3.5" />
+          Upload CSV / Excel
+        </button>
+      </div>
+
+      {/* ── Batch Upload Panel ───────────────────────────────────────────── */}
+      {activeTab === 'batch' && (
+        <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
+          <BatchUpload />
+        </div>
+      )}
+
+      {/* ── Manual Prediction Form (hidden when batch tab active) ─────── */}
+      {activeTab === 'manual' && <>
 
       {/* Preset Quick Bar */}
       <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 sm:p-5 space-y-3">
@@ -1079,6 +1120,10 @@ export default function Prediction() {
           )}
         </div>
       </div>
+
+      {/* Close manual tab fragment */}
+      </>}
+
     </div>
   );
 }

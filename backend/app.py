@@ -594,3 +594,90 @@ async def predict_endpoint(request: PredictionRequest) -> JSONResponse:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An internal server error occurred while processing the prediction.",
         )
+
+
+# ---------------------------------------------------------------------------
+# Batch Prediction Endpoint
+# ---------------------------------------------------------------------------
+
+class BatchPredictionRequest(BaseModel):
+    rows: List[PredictionRequest] = Field(
+        ...,
+        min_length=1,
+        max_length=500,
+        description="List of prediction input rows (1–500 items).",
+    )
+
+    model_config = {"extra": "ignore"}
+
+
+@app.post(
+    "/api/predict/batch",
+    summary="Batch landslide risk prediction",
+    description=(
+        "Submit a list of up to 500 input rows. Each row uses the same 14-feature "
+        "schema as /api/predict. Returns an array of results in the same order as "
+        "the input. Failed rows are returned with success=false and an error message "
+        "so they don't block the rest of the batch."
+    ),
+    responses={
+        400: {"model": ErrorResponse, "description": "Request-level validation error"},
+        422: {"description": "Pydantic field validation error"},
+        503: {"model": ErrorResponse, "description": "Model not available"},
+    },
+    tags=["Prediction"],
+)
+async def batch_predict_endpoint(request: BatchPredictionRequest) -> JSONResponse:
+    """
+    Batch Landslide Risk Prediction.
+
+    Processes each row independently. A per-row failure will NOT abort the batch —
+    it returns success=false with an error field for that row only.
+    """
+    logger.info(f"🌐 POST /api/predict/batch — {len(request.rows)} rows received")
+
+    # Check model availability once
+    try:
+        pipeline = load_model()
+    except Exception:
+        pipeline = None
+
+    if pipeline is None:
+        logger.error("Batch prediction requested but V2 model is not loaded.")
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="ML model is not available. Please contact the system administrator.",
+        )
+
+    results = []
+    for idx, row in enumerate(request.rows):
+        payload = row.model_dump()
+        try:
+            result = run_predict(payload)
+            result["row_index"] = idx
+            results.append(result)
+            logger.info(
+                f"  ✓ Row {idx + 1}/{len(request.rows)} — "
+                f"{result.get('risk_category', '?')} ({result.get('probability_percent', '?')}%)"
+            )
+        except Exception as exc:
+            logger.warning(f"  ✗ Row {idx + 1}/{len(request.rows)} failed: {exc}")
+            results.append({
+                "success": False,
+                "row_index": idx,
+                "error": str(exc),
+            })
+
+    success_count = sum(1 for r in results if r.get("success"))
+    logger.info(
+        f"✅ Batch complete — {success_count}/{len(request.rows)} rows succeeded"
+    )
+
+    return JSONResponse(content={
+        "success": True,
+        "total": len(request.rows),
+        "succeeded": success_count,
+        "failed": len(request.rows) - success_count,
+        "results": results,
+    })
+
