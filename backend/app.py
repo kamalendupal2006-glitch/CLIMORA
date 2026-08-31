@@ -553,6 +553,7 @@ async def predict_endpoint(request: PredictionRequest) -> JSONResponse:
 
     Contributing factors are environmental indicators — not causal claims.
     """
+    logger.info("🌐 POST /api/predict — incoming prediction request")
     # Check model is available
     try:
         pipeline = load_model()
